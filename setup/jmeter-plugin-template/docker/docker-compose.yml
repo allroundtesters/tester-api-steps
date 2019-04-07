@@ -1,0 +1,17 @@
+version: '3.3'
+
+services:
+  master:
+    build: ./jmeter-master
+    container_name: master
+    tty: true
+    networks:
+      - jmeter-network
+  worker:
+    build: ./jmeter-worker
+    networks:
+      - jmeter-network
+
+networks:
+  jmeter-network:
+    driver: bridge
