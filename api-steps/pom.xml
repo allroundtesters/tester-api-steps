@@ -12,5 +12,15 @@
         <module>tester-common</module>
     </modules>
 
-
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-releasetrain</artifactId>
+                <version>Lovelace-SR6</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
