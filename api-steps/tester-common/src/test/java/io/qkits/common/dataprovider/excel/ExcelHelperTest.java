@@ -39,8 +39,7 @@ public class ExcelHelperTest {
 
     @Test
     public void excelToBean(){
-      List<User> result = ExcelImportUtil.importExcel(new File("/home/patrick/workspace/daily/tester-api-steps/api-steps/tester-common/result.xls"),
-                User.class,new ImportParams());
-        System.out.println(result);
+      List<User> result = ExcelHelper.excelToBean("result.xls",User.class);
+      System.out.println(result);
     }
 }
