@@ -10,7 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>tester-common</module>
-        <module>postman-utils</module>
+        <module>tester-integration</module>
     </modules>
 
     <dependencyManagement>

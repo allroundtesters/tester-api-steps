@@ -1,4 +1,4 @@
-package io.allroundtester.setup.controller;
+package io.allroundtester.setup.helloworld.controller;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -13,9 +13,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author: patrick on 2019-01-20
