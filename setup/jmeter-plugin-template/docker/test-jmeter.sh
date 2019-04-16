@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 ##!/bin/bash
 ##
 ## Test the JMeter Docker image using a trivial test plan.
