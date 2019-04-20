@@ -10,10 +10,31 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>tester-integration</artifactId>
+    <properties>
+        <project.version>1.0-SNAPSHOT</project.version>
+        <springboot.version>2.1.4.RELEASE</springboot.version>
+    </properties>
     <packaging>pom</packaging>
     <modules>
         <module>postman-util</module>
     </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${springboot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${springboot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.qkits.tester</groupId>
+            <artifactId>tester-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>

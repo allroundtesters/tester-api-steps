@@ -1,0 +1,82 @@
+{
+  "info": {
+    "_postman_id": "b4128f9c-2b85-4a27-8872-8f3d4231dad0",
+    "name": "pilotrunner",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "runjob",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:8080/job/0/10/40",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "job",
+            "0",
+            "10",
+            "40"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "jobstatus",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:8080/job",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "job"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "stopjob",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:8080/job/stop",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "job",
+            "stop"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

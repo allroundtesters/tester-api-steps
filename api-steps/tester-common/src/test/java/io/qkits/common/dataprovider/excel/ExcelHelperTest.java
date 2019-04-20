@@ -27,13 +27,4 @@ public class ExcelHelperTest {
         ExcelHelper.toExcelFile("result.xls",User.class,users);
     }
 
-<<<<<<< HEAD
-
-=======
-    @Test
-    public void excelToBean(){
-      List<User> result = ExcelHelper.excelToBean("result.xls",User.class);
-      System.out.println(result);
-    }
->>>>>>> 37ce5e8bc9f1203f1c20a7110aff84ec253179a1
 }

@@ -1,0 +1,43 @@
+{
+	"info": {
+		"_postman_id": "64a91c32-6b4d-425b-b6b7-8b76f998e723",
+		"name": "credit",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "dflow",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"riskInput\": {\n        \"birthDay\": \"1991-03-18\",\n        \"productId\": \"ELOAN_AGENT_CREDIT_APPLICATION\",\n        \"degreeType\": \"\",\n        \"businessId\": \"4ff7f8c4426f4cf3b6c0060644e8b16e\",\n        \"employeeNo\": \"22112045\",\n        \"entry_date\": \"2015-03-01\",\n        \"marriage\": \"未婚\",\n        \"requestId\": \"9903cde14d9a4fb1955221eb90adee55\",\n        \"ucJobLevelCode\": \"OPER_01_01\",\n        \"flowNo\": \"1400\",\n        \"creditTime\": \"2019-04-09T16:58:34\",\n        \"applicationId\": \"cea643a1cec74de4b55da50c350012a6\",\n        \"applicationDate\": \"2019-04-09T16:58:34\",\n        \"ucId\": \"1000000022112045\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://riskm-gateway.test.bkjk.cn/riskDFlow/v1/evaluate",
+					"protocol": "http",
+					"host": [
+						"riskm-gateway",
+						"test",
+						"bkjk",
+						"cn"
+					],
+					"path": [
+						"riskDFlow",
+						"v1",
+						"evaluate"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
