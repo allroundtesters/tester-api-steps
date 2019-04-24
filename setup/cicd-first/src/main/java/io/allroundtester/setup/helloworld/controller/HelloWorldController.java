@@ -9,25 +9,25 @@ import org.springframework.web.bind.annotation.*;
 public class HelloWorldController {
 
     @GetMapping("/HelloWorld/{id}")
-    public BaseResponse<HelloWorldDTO> getHelloWorld(@PathVariable Long id) {
-        return BaseResponse.builder().OK().data(HelloWorldDTO.builder().id(id).msg("Hello World").build());
+    public BaseResponse getHelloWorld(@PathVariable Long id) {
+        return BaseResponse.OK().data(HelloWorldDTO.builder().id(id).msg("Hello World").build());
 
     }
 
 
     @PostMapping("/HelloWorld")
     public BaseResponse<HelloWorldDTO> createHelloWorld(@RequestBody HelloWorldDTO requestBody) {
-        return BaseResponse.builder().OK().data(requestBody);
+        return BaseResponse.OK().data(requestBody);
     }
 
     @PutMapping("/HelloWorld/{id}")
     public BaseResponse<HelloWorldDTO> updateHelloWorld(@PathVariable Long id, @RequestBody HelloWorldDTO updateData) {
 
-        return BaseResponse.builder().OK().data(updateData);
+        return BaseResponse.OK().data(updateData);
     }
 
     @DeleteMapping("/HelloWorld/{id}")
     public BaseResponse<HelloWorldDTO> deleteHelloWorld(@PathVariable Long id) {
-        return BaseResponse.builder().OK().data(HelloWorldDTO.builder().id(id).msg("deleted!").build());
+        return BaseResponse.OK().data(HelloWorldDTO.builder().id(id).msg("deleted!").build());
     }
 }
