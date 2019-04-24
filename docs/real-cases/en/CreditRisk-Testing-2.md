@@ -1,9 +1,9 @@
 # Rule Based Risk Engine Part 2 - Write Code to Test
 
-Till now, what to do is quite obvious:
+What to do is quite obvious:
 
-1. Compose input data
-    * Fundametal Data
+1. Compose input data - Test Case Input
+    * Fundamental Data
     * Third Party And in-house data
 2. Mock the third party and in-house data according test cases
 3. Call the Evaluation API to checkout if meet the expectation
@@ -11,10 +11,10 @@ Till now, what to do is quite obvious:
 And how to write code? I separate into different modules:
 
 - TestCaseLoader: load the whole input parameters
-- DataFactory: Produce different Data
+- DataFactory: Produce different Data as input parameters
   - RiskInputDataFactory
   - MockDataFactory
-  - Some Auto Generated Data Helper
+  - Some Auto Generated Data Helper for testing purposes
 - Clients: invoke evaluation api and mock service api
   - RiskEvaluationClient
   - MockClient
@@ -28,7 +28,7 @@ And how to write code? I separate into different modules:
 ## Implement The different Modules - TestCaseLoader
 
 TestCaseLoader, levarage easy-poi, it helps you to read/write excel 
-very quickly. For how to use easy-poi, please refer []()
+very quickly. For how to use easy-poi, please refer [easy-poi](http://easypoi.mydoc.io/)
 
 ## Implement The different Modules - Datafactory
 
@@ -52,6 +52,12 @@ Finally I just find out that leverage Dev's codes is the bese option. Do a quick
 It is quite simple, just leverage the Okwrap client.
 
 ## Implement The different Modules - TestRunner
+
+TestRunnerTemplate
+
+- Before
+- Run
+- After
 
   
 
