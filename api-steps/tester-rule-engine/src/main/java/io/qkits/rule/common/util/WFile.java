@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +34,10 @@ public class WFile {
 
     private static String getClassPath(){
         try {
-            return java.net.URLDecoder.decode(WFile.class.getClassLoader().getResource("").getPath(),"utf-8");
+            return URLDecoder.decode(WFile.class.getClassLoader().getResource("").getPath(),"utf-8");
         } catch (UnsupportedEncodingException e) {
-            log.error("error+{}",e);
+//            log.error("error={}",e);
+
         }
 
         throw new RuntimeException("可能你使用了中文名字作为了项目名称,或者在你的路径中");

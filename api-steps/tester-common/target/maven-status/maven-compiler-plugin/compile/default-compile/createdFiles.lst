@@ -1,0 +1,10 @@
+io/qkits/common/db/sql/DefaultSQLSourceConnector.class
+io/qkits/common/dataprovider/excel/ExcelHelper.class
+io/qkits/common/db/DriverClassMapping.class
+io/qkits/common/helper/StringHelper.class
+io/qkits/common/helper/JSONHelper.class
+io/qkits/common/db/DataSourceConnectorFactory.class
+io/qkits/common/db/DataType.class
+io/qkits/common/db/DataSourceConnector.class
+io/qkits/common/db/DataSourceConfigFactory.class
+io/qkits/common/db/ConnectorException.class

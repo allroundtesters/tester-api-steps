@@ -1,4 +1,4 @@
-package io.qkits.pilotrunner.common.util;
+package io.qkits.rule.common.util;
 
 
 import org.apache.commons.lang3.StringUtils;

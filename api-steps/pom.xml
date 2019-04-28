@@ -11,6 +11,8 @@
     <modules>
         <module>tester-common</module>
         <module>tester-integration</module>
+<!--        <module>tester-rule-engine</module>-->
+        <module>tester-mock</module>
     </modules>
 
     <dependencyManagement>

@@ -1,9 +1,8 @@
-package io.qkits.pilotrunner.common.util;
+package io.qkits.rule.common.util;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
-
 
 import java.util.List;
 import java.util.Map;

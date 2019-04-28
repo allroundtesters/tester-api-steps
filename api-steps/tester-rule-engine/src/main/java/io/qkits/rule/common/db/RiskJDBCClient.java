@@ -1,5 +1,6 @@
 package io.qkits.rule.common.db;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,13 @@ import java.util.Map;
  */
 @Component
 public class RiskJDBCClient {
+
+    @Value(value = "${risk.dbUrl}")
+    private String riskDBUrl;
+    @Value(value = "${risk.user}")
+    private String user;
+    @Value(value = "${risk.password}")
+    private String password;
 
     private JdbcTemplate riskJdbcTemplate;
 
@@ -35,10 +43,10 @@ public class RiskJDBCClient {
 
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 
-        dataSource.setUrl("jdbc:mysql://test.wr.mysql.bkjk.cn:3309/cred_r_operating?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false");
+        dataSource.setUrl(this.riskDBUrl);
 
-        dataSource.setUsername("cred_r_operating");
-        dataSource.setPassword("iytPU_CJzPUe");
+        dataSource.setUsername(this.user);
+        dataSource.setPassword(this.password);
 
         return dataSource;
     }

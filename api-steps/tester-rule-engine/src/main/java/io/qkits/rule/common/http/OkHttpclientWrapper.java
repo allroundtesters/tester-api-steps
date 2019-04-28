@@ -1,4 +1,4 @@
-package io.qkits.pilotrunner.common.http;
+package io.qkits.rule.common.http;
 
 import io.qkits.pilotrunner.common.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package io.qkits.pilotrunner.common.util;
+package io.qkits.rule.common.util;
 
 public class CookiePair {
 
