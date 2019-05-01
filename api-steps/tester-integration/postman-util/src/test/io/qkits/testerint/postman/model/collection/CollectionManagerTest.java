@@ -1,6 +1,6 @@
 package io.qkits.testerint.postman.model.collection;
 
-import io.qkits.common.helper.JSONHelper;
+import io.qkits.common.utils.JSONHelper;
 import org.aspectj.util.FileUtil;
 import org.junit.Test;
 

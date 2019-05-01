@@ -13,6 +13,7 @@
         <module>tester-integration</module>
 <!--        <module>tester-rule-engine</module>-->
         <module>tester-mock</module>
+        <module>rule-runner</module>
     </modules>
 
     <dependencyManagement>
