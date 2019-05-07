@@ -11,6 +11,9 @@ import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * @author patrick
+ */
 public class KeyStoreUtil {
     private static Map<String, String> keyMap = new ConcurrentHashMap<>();
 

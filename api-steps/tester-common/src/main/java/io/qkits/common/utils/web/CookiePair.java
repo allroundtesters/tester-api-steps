@@ -1,5 +1,8 @@
 package io.qkits.common.utils;
 
+/**
+ * @author patrick
+ */
 public class CookiePair {
 
   private String key;
