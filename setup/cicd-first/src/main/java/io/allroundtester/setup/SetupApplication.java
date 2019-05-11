@@ -3,6 +3,9 @@ package io.allroundtester.setup;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author patrick
+ */
 @SpringBootApplication
 public class SetupApplication {
 
