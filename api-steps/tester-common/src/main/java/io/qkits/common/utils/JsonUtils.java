@@ -17,14 +17,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Created by patrick on 15/3/13.
- *
- * @version $Id$
+ * @author patrick
+ * @date 15/3/13
  */
 
 
 @SuppressWarnings("unchecked")
-public class JSONUtils {
+public class JsonUtils {
     private static ObjectMapper mapper = new ObjectMapper();
 
 
@@ -88,40 +87,10 @@ public class JSONUtils {
 //        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
     }
 
-    private JSONUtils() {
+    private JsonUtils() {
     }
 
-//    public static <T> T toBean(String jsonString, Class<T> clazz) {
-//
-//        return JSON.parseObject(jsonString, clazz);
-//    }
-
-//    /**
-//     * parse Json to List
-//     *
-//     * @param jsonString
-//     * @param type
-//     * @param <T>
-//     * @return
-//     */
-//    public static <T> List<T> toList(String jsonString, TypeReference type) {
-//        return (List<T>) JSON.parseObject(jsonString, type);
-//    }
-//
-//    public static List<Map<String, String>> toMapList(String jsonString) {
-//        List<Map<String, String>> result = Lists.newArrayList();
-//        try {
-//            result = JSONHelper.toList(jsonString.trim(), new TypeReference<List<Map<String, String>>>() {
-//            });
-//        } catch (Exception e) {
-//            throw new RuntimeException("输入数据有错，请检查，需要是[{key:value},{key:value}]格式,此数据格式是:" + jsonString);
-//        }
-//
-//        return result;
-//    }
-
-
-    /*
+    /**
     {
         "store": {
             "book": [
@@ -178,22 +147,8 @@ public class JSONUtils {
         $..book[?(@.author =~ /.*REES/i)]	All books matching regex (ignore case)
         $..*	Give me every thing
     */
-    public static Object getValue(String jsonString, String jsonPathExpression) {
+    public static Object extractValue(String jsonString, String jsonPathExpression) {
         Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
-        //        if(o instanceof JSONArray){
-//            if(((JSONArray) o).size()==1){
-//                try{
-//                return ((JSONArray) o).get(0);
-//                }catch (Exception e){
-//                    return ((JSONArray) o).get(0).toString();
-//                }
-////            }else{
-////                List<JSONArray> result = Lists.newArrayList();
-////                ((JSONArray) o).forEach(element->result.add((JSONArray) element));
-////                return result;
-//            }
-//
-//        }
         return JsonPath.read(document, jsonPathExpression);
     }
 
@@ -242,7 +197,7 @@ public class JSONUtils {
 //    public static Map<String, String> getArrayValueToMap(String jsonString, String jsonPathExpression) {
 //
 //        try {
-//            return (Map<String, String>) ((JSONArray) getValue(jsonString, jsonPathExpression)).get(0);
+//            return (Map<String, String>) ((JSONArray) extractValue(jsonString, jsonPathExpression)).get(0);
 //        } catch (Exception e) {
 //            throw new RuntimeException(e);
 //        }
@@ -258,7 +213,7 @@ public class JSONUtils {
         try {
             return JsonPath.read(jsonString, jsonPathExpression).toString();
         } catch (Exception e) {
-            return StringsUtils.EMPTY;
+            return "";
         }
     }
 }

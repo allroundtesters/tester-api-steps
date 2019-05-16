@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * @author patrick
+ */
 @Slf4j
 public final class MapUtils {
 
@@ -58,7 +61,9 @@ public final class MapUtils {
      * @return Map with the give keys
      */
     public static <T> Map<String, T> getMultiple(Map<String, T> sources, String... keys) {
-        if (keys.length == 0) return sources;
+        if (keys.length == 0) {
+            return sources;
+        }
         Map<String, T> result = Maps.newHashMap();
         for (String key : keys) {
             result.put(key, sources.get(key));
@@ -75,7 +80,9 @@ public final class MapUtils {
      */
     public static <T> Map<String, T> getMultiple(Map<String, T> sources
             , List<String> keys) {
-        if (keys.size() == 0) return sources;
+        if (keys.size() == 0) {
+            return sources;
+        }
         Map<String, T> result = Maps.newHashMap();
         for (String key : keys) {
             result.put(key, sources.get(key));

@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * @author patrick
  */
-public interface FeatureLoader {
+public interface FeatureCaseLoader {
     /**
      * Load File
      * @param path

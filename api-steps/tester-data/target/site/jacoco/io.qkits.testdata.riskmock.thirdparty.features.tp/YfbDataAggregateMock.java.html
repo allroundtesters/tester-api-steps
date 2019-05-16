@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>YfbDataAggregateMock.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tester-data</a> &gt; <a href="index.source.html" class="el_package">io.qkits.testdata.riskmock.thirdparty.features.tp</a> &gt; <span class="el_source">YfbDataAggregateMock.java</span></div><h1>YfbDataAggregateMock.java</h1><pre class="source lang-java linenums">package io.qkits.testdata.riskmock.thirdparty.features.tp;
+
+import io.qkits.testdata.riskmock.base.annotation.MockEntity;
+import io.qkits.testdata.riskmock.base.annotation.DataService;
+import io.qkits.testdata.riskmock.base.BaseFeatureEntity;
+import io.qkits.testdata.riskmock.base.FeatureDefinition;
+import io.qkits.testdata.riskmock.base.FeatureTypeEnum;
+
+
+import java.util.Map;
+
+@DataService(name = &quot;yfbDataAggregate&quot;)
+@MockEntity
+<span class="nc" id="L14">public class YfbDataAggregateMock extends BaseFeatureEntity {</span>
+<span class="nc" id="L15">    private static String LASTEST_REPAYMENT_STATUS = &quot;lastestRepaymentStatus&quot;;</span>
+<span class="nc" id="L16">    private static String INTERVAL_DAYS = &quot;intervalDays&quot;;</span>
+<span class="nc" id="L17">    private static String OVERDUE_DAYS = &quot;overdueDays&quot;;</span>
+<span class="nc" id="L18">    private static String TOTAL_OVERDUE_TIMES = &quot;totalOverdueTimes&quot;;</span>
+<span class="nc" id="L19">    private static String MAX_OVERDUE_TIMES = &quot;maxOverdueTimes&quot;;</span>
+<span class="nc" id="L20">    private static String MAX_OVERDUE_TIMES_ABOVE_2_DAYS = &quot;maxOverdueTimesAbove2Days&quot;;</span>
+<span class="nc" id="L21">    private static String TOTAL_OVERDUE_TIMES_ABOVE_2_DAYS = &quot;totalOverdueTimesAbove2Days&quot;;</span>
+<span class="nc" id="L22">    private static String MAX_OVERDUE_TIMES_ABOVE_4_DAYS = &quot;maxOverdueTimesAbove4Days&quot;;</span>
+<span class="nc" id="L23">    private static String TOTAL_OVERDUE_TIMES_ABOVE_4_DAYS = &quot;totalOverdueTimesAbove4Days&quot;;</span>
+<span class="nc" id="L24">    private static String MAX_OVERDUE_TIMES_ABOVE_15_DAYS = &quot;maxOverdueTimesAbove15Days&quot;;</span>
+<span class="nc" id="L25">    private static String TOTAL_OVERDUE_TIMES_ABOVE_15_DAYS = &quot;totalOverdueTimesAbove15Days&quot;;</span>
+<span class="nc" id="L26">    private static String MAX_OVERDUE_TIMES_ABOVE_30_DAYS = &quot;maxOverdueTimesAbove30Days&quot;;</span>
+<span class="nc" id="L27">    private static String TOTAL_OVERDUE_TIMES_ABOVE_30_DAYS = &quot;totalOverdueTimesAbove30Days&quot;;</span>
+
+    @Override
+    protected void initStatusMap() {
+<span class="nc" id="L31">        resultMap.put(LASTEST_REPAYMENT_STATUS, -1);</span>
+<span class="nc" id="L32">        resultMap.put(INTERVAL_DAYS, -1);</span>
+<span class="nc" id="L33">        resultMap.put(OVERDUE_DAYS, 0);</span>
+<span class="nc" id="L34">        resultMap.put(TOTAL_OVERDUE_TIMES, 0);</span>
+<span class="nc" id="L35">        resultMap.put(MAX_OVERDUE_TIMES, 0);</span>
+<span class="nc" id="L36">        resultMap.put(MAX_OVERDUE_TIMES_ABOVE_2_DAYS, 0);</span>
+<span class="nc" id="L37">        resultMap.put(TOTAL_OVERDUE_TIMES_ABOVE_2_DAYS, 0);</span>
+<span class="nc" id="L38">        resultMap.put(MAX_OVERDUE_TIMES_ABOVE_4_DAYS, 0);</span>
+<span class="nc" id="L39">        resultMap.put(TOTAL_OVERDUE_TIMES_ABOVE_4_DAYS, 0);</span>
+<span class="nc" id="L40">        resultMap.put(MAX_OVERDUE_TIMES_ABOVE_15_DAYS, 0);</span>
+<span class="nc" id="L41">        resultMap.put(TOTAL_OVERDUE_TIMES_ABOVE_15_DAYS, 0);</span>
+<span class="nc" id="L42">        resultMap.put(MAX_OVERDUE_TIMES_ABOVE_30_DAYS, 0);</span>
+<span class="nc" id="L43">        resultMap.put(TOTAL_OVERDUE_TIMES_ABOVE_30_DAYS, 0);</span>
+<span class="nc" id="L44">    }</span>
+
+    @Override
+    protected void initDataPath() {
+<span class="nc bnc" id="L48" title="All 2 branches missed.">        for (Map.Entry&lt;String, Object&gt; entry : resultMap.entrySet()) {</span>
+<span class="nc" id="L49">            dataPathMap.put(entry.getKey(), FeatureDefinition.builder()</span>
+<span class="nc" id="L50">                    .possibleValues(&quot;0,300&quot;)</span>
+<span class="nc" id="L51">                    .featureType(FeatureTypeEnum.Counter.name()).build());</span>
+<span class="nc" id="L52">        }</span>
+<span class="nc" id="L53">        dataPathMap.put(LASTEST_REPAYMENT_STATUS, FeatureDefinition.builder()</span>
+<span class="nc" id="L54">                .possibleValues(&quot;1,2,3,4,5&quot;)</span>
+<span class="nc" id="L55">                .defaultValue(&quot;3&quot;)</span>
+<span class="nc" id="L56">                .featureType(FeatureTypeEnum.Enum.name()).build());</span>
+<span class="nc" id="L57">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

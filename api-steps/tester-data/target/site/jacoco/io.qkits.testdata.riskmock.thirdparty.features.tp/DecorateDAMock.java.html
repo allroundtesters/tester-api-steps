@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DecorateDAMock.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tester-data</a> &gt; <a href="index.source.html" class="el_package">io.qkits.testdata.riskmock.thirdparty.features.tp</a> &gt; <span class="el_source">DecorateDAMock.java</span></div><h1>DecorateDAMock.java</h1><pre class="source lang-java linenums">package io.qkits.testdata.riskmock.thirdparty.features.tp;
+
+import io.qkits.testdata.riskmock.base.annotation.MockEntity;
+import io.qkits.testdata.riskmock.base.annotation.DataService;
+import io.qkits.testdata.riskmock.base.BaseFeatureEntity;
+import io.qkits.testdata.riskmock.base.FeatureDefinition;
+
+
+import java.util.HashMap;
+import java.util.Map;
+
+@DataService(name = &quot;decorateDataAggregate&quot;)
+@MockEntity
+<span class="nc" id="L14">public class DecorateDAMock extends BaseFeatureEntity {</span>
+
+    @Override
+    protected void initStatusMap() {
+<span class="nc" id="L18">        Map&lt;Object, Object&gt; auditStatusMapping = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L19">        auditStatusMapping.put(1, &quot;5&quot;);</span>
+<span class="nc" id="L20">        auditStatusMapping.put(2, &quot;4&quot;);</span>
+<span class="nc" id="L21">        auditStatusMapping.put(3, &quot;1&quot;);</span>
+<span class="nc" id="L22">        auditStatusMapping.put(4, &quot;2&quot;);</span>
+<span class="nc" id="L23">        auditStatusMapping.put(5, &quot;3&quot;);</span>
+<span class="nc" id="L24">        statusMap.put(&quot;lastOrderTrialStatus&quot;, auditStatusMapping);</span>
+
+<span class="nc" id="L26">        Map&lt;Object, Object&gt; repayStatusMapping = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L27">        repayStatusMapping.put(10, &quot;1&quot;);</span>
+<span class="nc" id="L28">        repayStatusMapping.put(11, &quot;2&quot;);</span>
+<span class="nc" id="L29">        repayStatusMapping.put(12, &quot;2&quot;);</span>
+<span class="nc" id="L30">        repayStatusMapping.put(6, &quot;3&quot;);</span>
+<span class="nc" id="L31">        repayStatusMapping.put(8, &quot;3&quot;);</span>
+<span class="nc" id="L32">        repayStatusMapping.put(16, &quot;3&quot;);</span>
+<span class="nc" id="L33">        repayStatusMapping.put(9, &quot;1&quot;);</span>
+<span class="nc" id="L34">        repayStatusMapping.put(14, &quot;1&quot;);</span>
+<span class="nc" id="L35">        repayStatusMapping.put(15, &quot;1&quot;);</span>
+<span class="nc" id="L36">        statusMap.put(&quot;lastApprOrderRepayStatus&quot;, repayStatusMapping);</span>
+<span class="nc" id="L37">    }</span>
+
+    @Override
+    protected void initDataPath() {
+<span class="nc" id="L41">        dataPathMap.clear();</span>
+        // 上一笔装修订单风控审核结果
+<span class="nc" id="L43">        dataPathMap.put(&quot;lastOrderTrialStatus&quot;, FeatureDefinition.builder()</span>
+<span class="nc" id="L44">                .extractPath(&quot;$.lastOrderAuditStatus&quot;)</span>
+<span class="nc" id="L45">                .defaultNullValue(&quot;&quot;)</span>
+<span class="nc" id="L46">                .build());</span>
+
+        // 上一笔审批通过装修订单还款情况
+<span class="nc" id="L49">        dataPathMap.put(&quot;lastApprOrderRepayStatus&quot;, FeatureDefinition.builder()</span>
+<span class="nc" id="L50">                .extractPath(&quot;$.lastOrderAuditStatus&quot;)</span>
+<span class="nc" id="L51">                .defaultNullValue(&quot;&quot;)</span>
+<span class="nc" id="L52">                .build());</span>
+
+        // 上一笔审批通过装修订单放款金额
+<span class="nc" id="L55">        dataPathMap.put(&quot;lastOrderLendAmount&quot;, FeatureDefinition.builder()</span>
+<span class="nc" id="L56">                .extractPath(&quot;$.lastApprOrderLoanAmt&quot;)</span>
+<span class="nc" id="L57">                .defaultNullValue(-1)</span>
+<span class="nc" id="L58">                .build());</span>
+
+        // 上一笔审批通过装修订单累计逾期天数
+<span class="nc" id="L61">        dataPathMap.put(&quot;lastOrderOverdueDays&quot;, FeatureDefinition.builder()</span>
+<span class="nc" id="L62">                .extractPath(&quot;$.lastApprOrderOverdueDaysTotal&quot;)</span>
+<span class="nc" id="L63">                .defaultNullValue(-1)</span>
+<span class="nc" id="L64">                .build());</span>
+
+        // 最新更新装修订单订单编号
+<span class="nc" id="L67">        dataPathMap.put(&quot;lastUpdatedOrderNo&quot;, FeatureDefinition.builder()</span>
+<span class="nc" id="L68">                .extractPath(&quot;$.lastestUpdateOrderCode&quot;)</span>
+<span class="nc" id="L69">                .defaultNullValue(&quot;&quot;)</span>
+<span class="nc" id="L70">                .build());</span>
+
+        // 最新更新装修订单更新时间
+<span class="nc" id="L73">        dataPathMap.put(&quot;lastUpdatedOrderUpdateTime&quot;, FeatureDefinition.builder()</span>
+<span class="nc" id="L74">                .extractPath(&quot;$.lastestUpdateOrderUpdateTime&quot;)</span>
+<span class="nc" id="L75">                .defaultNullValue(&quot;&quot;)</span>
+<span class="nc" id="L76">                .build());</span>
+<span class="nc" id="L77">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

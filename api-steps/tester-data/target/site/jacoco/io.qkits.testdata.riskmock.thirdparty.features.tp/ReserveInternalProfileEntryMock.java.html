@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReserveInternalProfileEntryMock.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tester-data</a> &gt; <a href="index.source.html" class="el_package">io.qkits.testdata.riskmock.thirdparty.features.tp</a> &gt; <span class="el_source">ReserveInternalProfileEntryMock.java</span></div><h1>ReserveInternalProfileEntryMock.java</h1><pre class="source lang-java linenums">package io.qkits.testdata.riskmock.thirdparty.features.tp;
+
+import io.qkits.testdata.riskmock.base.annotation.MockEntity;
+import io.qkits.testdata.riskmock.base.annotation.DataService;
+import io.qkits.testdata.riskmock.base.BaseFeatureEntity;
+import io.qkits.testdata.riskmock.base.FeatureDefinition;
+
+
+import java.util.HashMap;
+import java.util.Map;
+
+@DataService(name = &quot;reserveInternalProfileEntryService&quot;)
+@MockEntity
+<span class="nc" id="L14">public class ReserveInternalProfileEntryMock extends BaseFeatureEntity {</span>
+
+    private static final String DEGREE = &quot;degree&quot;;
+    private static final String MARRIAGE = &quot;marriage&quot;;
+    private static final String ON_JOB_MONTHS = &quot;onJobMonths&quot;;
+    private static final String ON_JOB_STATUS = &quot;onJobStatus&quot;;
+    private static final String JOB_LEVEL = &quot;jobLevel&quot;;
+    private static final int ON_THE_JOB = 1;
+
+
+    @Override
+    protected void initStatusMap() {
+<span class="nc" id="L26">        Map&lt;Object, Object&gt; degreeStatusMapping = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L27">        degreeStatusMapping.put(&quot;本科（统招）&quot;, 2);</span>
+<span class="nc" id="L28">        degreeStatusMapping.put(&quot;本科（非统招）&quot;, 2);</span>
+<span class="nc" id="L29">        degreeStatusMapping.put(&quot;硕士研究生（统招）&quot;, 3);</span>
+<span class="nc" id="L30">        degreeStatusMapping.put(&quot;专科（非统招）&quot;, 1);</span>
+<span class="nc" id="L31">        degreeStatusMapping.put(&quot;硕士研究生&quot;, 3);</span>
+<span class="nc" id="L32">        degreeStatusMapping.put(&quot;国外学历（本科）&quot;, 3);</span>
+<span class="nc" id="L33">        degreeStatusMapping.put(&quot;本科(非统招)&quot;, 2);</span>
+<span class="nc" id="L34">        degreeStatusMapping.put(&quot;本科（实习生）&quot;, 2);</span>
+<span class="nc" id="L35">        degreeStatusMapping.put(&quot;本科(统招)&quot;, 2);</span>
+<span class="nc" id="L36">        degreeStatusMapping.put(&quot;硕士研究生（非统招）&quot;, 3);</span>
+<span class="nc" id="L37">        degreeStatusMapping.put(&quot;国外学历（硕士）&quot;, 3);</span>
+<span class="nc" id="L38">        degreeStatusMapping.put(&quot;博士研究生&quot;, 3);</span>
+<span class="nc" id="L39">        degreeStatusMapping.put(&quot;专科（实习生）&quot;, 1);</span>
+<span class="nc" id="L40">        degreeStatusMapping.put(&quot;专科(统招)&quot;, 1);</span>
+<span class="nc" id="L41">        degreeStatusMapping.put(&quot;大专&quot;, 1);</span>
+<span class="nc" id="L42">        degreeStatusMapping.put(&quot;专科(实习生)&quot;, 1);</span>
+<span class="nc" id="L43">        degreeStatusMapping.put(&quot;专科（大专统招）&quot;, 1);</span>
+<span class="nc" id="L44">        degreeStatusMapping.put(&quot;国外学历(非统招)&quot;, 3);</span>
+<span class="nc" id="L45">        degreeStatusMapping.put(&quot;本科(实习生)&quot;, 2);</span>
+<span class="nc" id="L46">        degreeStatusMapping.put(&quot;本科&quot;, 2);</span>
+<span class="nc" id="L47">        degreeStatusMapping.put(&quot;硕士&quot;, 3);</span>
+<span class="nc" id="L48">        degreeStatusMapping.put(&quot;硕士研究生(非统招)&quot;, 3);</span>
+<span class="nc" id="L49">        degreeStatusMapping.put(&quot;硕士研究生(实习生)&quot;, 3);</span>
+<span class="nc" id="L50">        degreeStatusMapping.put(&quot;初中及以下&quot;, 1);</span>
+<span class="nc" id="L51">        degreeStatusMapping.put(&quot;专科&quot;, 1);</span>
+<span class="nc" id="L52">        degreeStatusMapping.put(&quot;硕士研究生(统招)&quot;, 3);</span>
+<span class="nc" id="L53">        degreeStatusMapping.put(&quot;国外学历(统招)&quot;, 3);</span>
+<span class="nc" id="L54">        degreeStatusMapping.put(&quot;本科（实习生)&quot;, 2);</span>
+<span class="nc" id="L55">        degreeStatusMapping.put(&quot;博士&quot;, 3);</span>
+<span class="nc" id="L56">        statusMap.put(DEGREE, degreeStatusMapping);</span>
+
+<span class="nc" id="L58">        Map&lt;Object, Object&gt; marriageStatusMapping = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L59">        marriageStatusMapping.put(&quot;已婚&quot;, 1);</span>
+<span class="nc" id="L60">        marriageStatusMapping.put(&quot;未婚&quot;, 0);</span>
+<span class="nc" id="L61">        marriageStatusMapping.put(&quot;未知&quot;, -1);</span>
+<span class="nc" id="L62">        statusMap.put(MARRIAGE, marriageStatusMapping);</span>
+
+<span class="nc" id="L64">        Map&lt;Object, Object&gt; onJobStatusMapping = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L65">        onJobStatusMapping.put(&quot;在职在岗&quot;, 1);</span>
+<span class="nc" id="L66">        onJobStatusMapping.put(&quot;离职&quot;, 0);</span>
+<span class="nc" id="L67">        onJobStatusMapping.put(&quot;未知&quot;, -1);</span>
+<span class="nc" id="L68">        statusMap.put(ON_JOB_STATUS, onJobStatusMapping);</span>
+<span class="nc" id="L69">    }</span>
+
+    @Override
+    protected void initDataPath() {
+<span class="nc" id="L73">        dataPathMap.clear();</span>
+
+        // 学历
+<span class="nc" id="L76">        dataPathMap.put(DEGREE, FeatureDefinition.builder()</span>
+<span class="nc" id="L77">                .extractPath(&quot;$.degreeType&quot;)</span>
+<span class="nc" id="L78">                .defaultNullValue(-1)</span>
+<span class="nc" id="L79">                .build());</span>
+
+        // 婚姻状况
+<span class="nc" id="L82">        dataPathMap.put(MARRIAGE, FeatureDefinition.builder()</span>
+<span class="nc" id="L83">                .extractPath(&quot;$.marriage&quot;)</span>
+<span class="nc" id="L84">                .defaultNullValue(-1)</span>
+<span class="nc" id="L85">                .build());</span>
+
+        // 在职期限
+<span class="nc" id="L88">        dataPathMap.put(ON_JOB_MONTHS, FeatureDefinition.builder()</span>
+<span class="nc" id="L89">                .extractPath(&quot;$.entryDate&quot;)</span>
+<span class="nc" id="L90">                .defaultNullValue(-1)</span>
+<span class="nc" id="L91">                .build());</span>
+
+        // 在职状态
+<span class="nc" id="L94">        dataPathMap.put(ON_JOB_STATUS, FeatureDefinition.builder()</span>
+<span class="nc" id="L95">                .extractPath(&quot;$.onJobStatus&quot;)</span>
+<span class="nc" id="L96">                .defaultNullValue(-1)</span>
+<span class="nc" id="L97">                .build());</span>
+
+        // 职级
+<span class="nc" id="L100">        dataPathMap.put(JOB_LEVEL, FeatureDefinition.builder()</span>
+<span class="nc" id="L101">                .extractPath(&quot;$.ucJobLevelName&quot;)</span>
+<span class="nc" id="L102">                .defaultNullValue(1)</span>
+<span class="nc" id="L103">                .build());</span>
+<span class="nc" id="L104">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

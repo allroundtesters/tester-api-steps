@@ -1,4 +1,4 @@
-package io.qkits.common.utils;
+package io.qkits.common.utils.codec;
 
 import java.util.Base64;
 

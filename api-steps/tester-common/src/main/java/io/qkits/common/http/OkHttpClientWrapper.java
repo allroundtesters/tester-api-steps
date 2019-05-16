@@ -1,10 +1,11 @@
 package io.qkits.common.http;
 
-import io.qkits.common.utils.JSONUtils;
+import io.qkits.common.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * OKWrapper for API Client
@@ -21,7 +22,7 @@ public class OkHttpClientWrapper<Req, Res> {
     public Res postForObject(String domainUrl, String routerUrl, Req req, Class returnClazz) {
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse(APPLICATION_JSON);
-        RequestBody body = RequestBody.create(mediaType, JSONUtils.toJsonString(req));
+        RequestBody body = RequestBody.create(mediaType, JsonUtils.toJsonString(req));
         Request request = new Request.Builder()
                 .url(domainUrl + routerUrl)
                 .post(body)
@@ -33,15 +34,15 @@ public class OkHttpClientWrapper<Req, Res> {
             response = client.newCall(request).execute();
 
             if(response.body()!=null){
-                return JSONUtils.toBean(response.body().string(), returnClazz);
+                return JsonUtils.toBean(response.body().string(), returnClazz);
             }
         } catch (IOException e) {
            log.error("invoke {} failed,error={}",routerUrl,e);
         }
 
         try {
-            return (Res) returnClazz.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+            return (Res) returnClazz.getDeclaredConstructor().newInstance();
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             log.error("init class {} failed,error={}",returnClazz.getSimpleName(),e);
             throw new RuntimeException(e);
         }

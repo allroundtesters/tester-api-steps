@@ -1,0 +1,116 @@
+// DO NOT MODIFY THIS FILE MANUALLY
+// Build-Template: 6.1.0
+
+version '1.0.0'
+
+buildscript {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url 'https://repo.spring.io/libs-milestone' }
+    }
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.5.RELEASE'
+        classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.5.1"
+        // classpath "gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:0.7.1"
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2"
+    }
+}
+
+repositories {
+    maven { url 'https://repo.spring.io/libs-milestone' }
+}
+
+subprojects {
+
+    version = '1.0.0' // default version
+
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'maven'
+    apply plugin: 'groovy'
+    // apply plugin: 'checkstyle'
+
+    // apply plugin: 'org.springframework.boot'
+    // apply plugin: 'io.spring.dependency-management'
+    // apply plugin: 'com.gorylenko.gradle-git-properties'
+    // apply plugin: "com.github.sherter.google-java-format"
+
+    apply plugin: org.springframework.boot.gradle.plugin.SpringBootPlugin
+    apply plugin: io.spring.gradle.dependencymanagement.DependencyManagementPlugin
+    apply plugin: com.gorylenko.GitPropertiesPlugin
+    // apply plugin: com.github.sherter.googlejavaformatgradleplugin.GoogleJavaFormatPlugin
+    apply plugin: org.sonarqube.gradle.SonarQubePlugin
+
+    dependencyManagement { imports { mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Finchley.SR1' } }
+
+    repositories {
+        maven { url 'https://repo.spring.io/libs-milestone' }
+    }
+
+
+    sourceCompatibility = org.gradle.api.JavaVersion.VERSION_1_10
+    targetCompatibility = org.gradle.api.JavaVersion.VERSION_1_10
+
+    compileJava.options.encoding = 'UTF-8'
+    compileTestJava.options.encoding = 'UTF-8'
+
+    // targetCompatibility = org.gradle.api.JavaVersion.VERSION_1_10
+
+    jar { enabled = true }
+
+    bootJar { enabled = false }
+
+    // checkstyle {
+    //     toolVersion = "8.11"
+    // }
+
+    wrapper {
+        description 'creates gradle wrapper in order to execute ./gradlew <task>'
+        gradleVersion = '4.7'
+    }
+
+    bootRun { systemProperties System.properties }
+
+    generateGitProperties { enabled = false }
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                repository(url: "")
+                    authentication(userName: "admin", password: "admin123")
+                }
+            }
+        }
+    }
+
+    if (project.name.endsWith('service')) {
+        defaultTasks 'clean', 'bootJar'
+
+        bootJar { enabled = true }
+
+        generateGitProperties { enabled = true }
+
+        springBoot {
+            buildInfo {
+                properties { additional = System.properties }
+            }
+        }
+
+    }
+
+    if (project.name.endsWith('spi')) {
+        defaultTasks 'clean', 'jar'
+
+    }
+
+    configurations.all {
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    }
+
+    dependencies {
+        annotationProcessor "org.projectlombok:lombok:1.18.2"
+
+        compile 'org.slf4j:log4j-over-slf4j'
+        compile 'javax.xml.bind:jaxb-api'
+    }
+}

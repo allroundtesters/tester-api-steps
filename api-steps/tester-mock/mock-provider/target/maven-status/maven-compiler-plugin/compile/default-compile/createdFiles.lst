@@ -1,0 +1,7 @@
+io/xtests/mock/response/GenericMockResponse.class
+io/xtests/mock/store/GenericMockMemStore.class
+io/xtests/mock/response/MockSetupResponse.class
+io/xtests/mock/MockApp.class
+io/xtests/mock/response/GenericMockObject.class
+io/xtests/mock/response/MockSetupResponse$MockSetupResponseBuilder.class
+io/xtests/mock/controller/GenericMockController.class

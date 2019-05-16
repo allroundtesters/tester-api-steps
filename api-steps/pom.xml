@@ -10,10 +10,9 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>tester-common</module>
-        <module>tester-integration</module>
-<!--        <module>tester-rule-engine</module>-->
+        <module>tester-ext</module>
         <module>tester-mock</module>
-        <module>rule-runner</module>
+        <module>tester-data</module>
     </modules>
 
     <dependencyManagement>

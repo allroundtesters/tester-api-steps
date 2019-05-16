@@ -6,7 +6,7 @@ import lombok.Data;
  * @author patrick
  */
 @Data
-public class RowFeature {
+public class RowFeatureCase {
     private String caseId;
     private String serviceName;
     private String featureName;

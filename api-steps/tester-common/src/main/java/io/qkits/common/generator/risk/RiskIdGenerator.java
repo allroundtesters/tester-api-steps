@@ -1,4 +1,4 @@
-package io.qkits.common.generator;
+package io.qkits.common.generator.risk;
 
 public interface RiskIdGenerator {
 

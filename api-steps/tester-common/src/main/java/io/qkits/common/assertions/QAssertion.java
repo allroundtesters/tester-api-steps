@@ -109,7 +109,7 @@
 //            for (Map.Entry entry : exp.entrySet()) {
 //                if (isIgnoredFields(ignoreFields, entry)) continue;
 //                try {
-//                    if (entry.getValue() == null) {
+//                    if (entry.extractValue() == null) {
 //                        if (null == act.get(entry.getKey())) {
 //                            continue;
 //                        }
@@ -117,19 +117,19 @@
 //                    if (isIgnoredFields(ignoreFields, entry)) continue;
 //
 //                    //if JsonObject
-//                    if (entry.getValue() instanceof JSONObject && act.get(entry.getKey()) instanceof JSONObject) {
-//                        compareJson(reason, ((JSONObject) act.get(entry.getKey())), ((JSONObject) entry.getValue()), ignoreFields);
+//                    if (entry.extractValue() instanceof JSONObject && act.get(entry.getKey()) instanceof JSONObject) {
+//                        compareJson(reason, ((JSONObject) act.get(entry.getKey())), ((JSONObject) entry.extractValue()), ignoreFields);
 //                        return;
 //                    }
 //
 //                    //if JsonArray
-//                    if (entry.getValue() instanceof JSONArray && act.get(entry.getKey()) instanceof JSONArray) {
-//                        compareJson(reason, ((JSONArray) act.get(entry.getKey())), ((JSONArray) entry.getValue()), ignoreFields);
+//                    if (entry.extractValue() instanceof JSONArray && act.get(entry.getKey()) instanceof JSONArray) {
+//                        compareJson(reason, ((JSONArray) act.get(entry.getKey())), ((JSONArray) entry.extractValue()), ignoreFields);
 //                        return;
 //                    }
 //
 //                    //assert value
-//                    this.assertEquals(act.get(entry.getKey()), entry.getValue(), "检查" + entry.getKey() + "是否一致");
+//                    this.assertEquals(act.get(entry.getKey()), entry.extractValue(), "检查" + entry.getKey() + "是否一致");
 //                } catch (Exception e) {
 //                    addSoftAsserts(e);
 //                }
@@ -392,7 +392,7 @@
 ////                    }
 ////                });
 ////        for (Map.Entry<String, String> entry : expectedValues.entrySet()) {
-////            this.assertEquals(String.valueOf(dbResult.get(entry.getKey())), String.valueOf(entry.getValue()), "检查字段" + entry.getKey());
+////            this.assertEquals(String.valueOf(dbResult.get(entry.getKey())), String.valueOf(entry.extractValue()), "检查字段" + entry.getKey());
 ////        }
 ////        return this;
 ////    }
@@ -402,7 +402,7 @@
 //        for (Map<String, String> map : source) {
 //            if (map.size() == valueToCheck.size()) {
 //                for (Map.Entry<String, String> entry : map.entrySet()) {
-//                    if (!String.valueOf(entry.getValue())
+//                    if (!String.valueOf(entry.extractValue())
 //                            .equals(String.valueOf(valueToCheck.get(entry.getKey())))) {
 //                        flag = false;
 //                    }
@@ -437,7 +437,7 @@
 ////                    }
 ////                });
 ////        for (Map.Entry<String, Object> entry : dbResult.entrySet()) {
-////            this.assertEquals(String.valueOf(dbResult.get(entry.getKey())), String.valueOf(entry.getValue()), "检查字段" + entry.getKey());
+////            this.assertEquals(String.valueOf(dbResult.get(entry.getKey())), String.valueOf(entry.extractValue()), "检查字段" + entry.getKey());
 ////        }
 ////        return this;
 ////    }
@@ -460,7 +460,7 @@
 ////        for (Map<String, Object> item : dbResult) {
 ////            Map<String, String> newItem = Maps.newHashMap();
 ////            for (Map.Entry<String, Object> entry : item.entrySet()) {
-////                newItem.put(entry.getKey(), String.valueOf(entry.getValue()));
+////                newItem.put(entry.getKey(), String.valueOf(entry.extractValue()));
 ////            }
 ////            modifiedDBResult.add(newItem);
 ////        }
@@ -500,7 +500,7 @@
 //        assertEquals(jsonToMap.size(), expected.size(), "检查数量");
 //        expected.entrySet().stream()
 //                .filter(entry -> !WCollections.arrayContains(ignoredField, entry.getKey()))
-//                .forEach(entry -> assertEquals(String.valueOf(entry.getValue()),
+//                .forEach(entry -> assertEquals(String.valueOf(entry.extractValue()),
 //                        String.valueOf(jsonToMap.get(entry.getKey())),
 //                        message + " 检查字段" + entry.getKey()));
 //        return this;

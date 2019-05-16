@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ChineseAddressGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tester-common</a> &gt; <a href="index.source.html" class="el_package">io.qkits.common.generator.address</a> &gt; <span class="el_source">ChineseAddressGenerator.java</span></div><h1>ChineseAddressGenerator.java</h1><pre class="source lang-java linenums">package io.qkits.common.generator.address;
+
+import io.qkits.common.generator.ChineseCharUtils;
+import io.qkits.common.generator.GenericGenerator;
+import io.qkits.common.generator.idcard.ChineseAreaList;
+import org.apache.commons.lang3.RandomUtils;
+
+
+/**
+ * @author patrick
+ */
+public class ChineseAddressGenerator extends GenericGenerator {
+<span class="nc" id="L13">    private static GenericGenerator instance = new ChineseAddressGenerator();</span>
+
+    private ChineseAddressGenerator() {
+
+    }
+
+    public static GenericGenerator getInstance() {
+<span class="nc" id="L20">        return instance;</span>
+    }
+
+    @Override
+    public String generate() {
+<span class="nc" id="L25">        StringBuilder result = new StringBuilder(genProvinceAndCity());</span>
+<span class="nc" id="L26">        result.append(ChineseCharUtils.genRandomLengthChineseChars(2, 3) + &quot;路&quot;);</span>
+<span class="nc" id="L27">        result.append(RandomUtils.nextInt(1, 8000) + &quot;号&quot;);</span>
+<span class="nc" id="L28">        result</span>
+<span class="nc" id="L29">            .append(ChineseCharUtils.genRandomLengthChineseChars(2, 3) + &quot;小区&quot;);</span>
+<span class="nc" id="L30">        result.append(RandomUtils.nextInt(1, 20) + &quot;单元&quot;);</span>
+<span class="nc" id="L31">        result.append(RandomUtils.nextInt(101, 2500) + &quot;室&quot;);</span>
+<span class="nc" id="L32">        return result.toString();</span>
+    }
+
+    private static String genProvinceAndCity() {
+<span class="nc" id="L36">        return ChineseAreaList.provinceCityList.get(</span>
+<span class="nc" id="L37">            RandomUtils.nextInt(0, ChineseAreaList.provinceCityList.size()));</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

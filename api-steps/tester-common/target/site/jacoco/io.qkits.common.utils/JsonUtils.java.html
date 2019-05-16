@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JsonUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tester-common</a> &gt; <a href="index.source.html" class="el_package">io.qkits.common.utils</a> &gt; <span class="el_source">JsonUtils.java</span></div><h1>JsonUtils.java</h1><pre class="source lang-java linenums">package io.qkits.common.utils;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.ValueNode;
+import com.jayway.jsonpath.Configuration;
+import com.jayway.jsonpath.JsonPath;
+
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+/**
+ * @author patrick
+ * @date 15/3/13
+ */
+
+
+@SuppressWarnings(&quot;unchecked&quot;)
+public class JsonUtils {
+<span class="nc" id="L27">    private static ObjectMapper mapper = new ObjectMapper();</span>
+
+
+    public static &lt;T&gt; T fromJson(String json, Class&lt;T&gt; t) {
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        if (json == null) {</span>
+<span class="nc" id="L32">            return null;</span>
+        } else {
+            try {
+<span class="nc" id="L35">                return mapper.readValue(json, t);</span>
+<span class="nc" id="L36">            } catch (Exception var3) {</span>
+<span class="nc" id="L37">                throw new RuntimeException(&quot;convert fromJson failed: &quot; + json + &quot;, dest class: &quot; + t.getName(), var3);</span>
+            }
+        }
+    }
+
+    public static &lt;T&gt; T toBean(String jsonString, Class beanClz) {
+        try {
+<span class="nc" id="L44">            return (T) mapper.readValue(jsonString, beanClz);</span>
+<span class="nc" id="L45">        } catch (IOException e) {</span>
+<span class="nc" id="L46">            throw new RuntimeException(e);</span>
+        }
+    }
+
+    public static &lt;T&gt; T fromObject(Object srcObj, Class&lt;T&gt; t) {
+<span class="nc bnc" id="L51" title="All 2 branches missed.">        if (srcObj == null) {</span>
+<span class="nc" id="L52">            return null;</span>
+        } else {
+            try {
+<span class="nc" id="L55">                return mapper.convertValue(srcObj, t);</span>
+<span class="nc" id="L56">            } catch (Exception var3) {</span>
+<span class="nc" id="L57">                throw new RuntimeException(&quot;convert fromObject failed: &quot; + srcObj + &quot;, dest class: &quot; + t.getName(), var3);</span>
+            }
+        }
+    }
+
+    public static &lt;T&gt; T fromMap(Map&lt;?, ?&gt; map, Class&lt;T&gt; t) {
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        if (map == null) {</span>
+<span class="nc" id="L64">            return null;</span>
+        } else {
+            try {
+<span class="nc" id="L67">                return mapper.readValue(toJsonString(map), t);</span>
+<span class="nc" id="L68">            } catch (Exception var3) {</span>
+<span class="nc" id="L69">                throw new RuntimeException(&quot;convert fromMap failed: &quot; + map + &quot;, dest class: &quot; + t.getName(), var3);</span>
+            }
+        }
+    }
+
+    public static String toJsonString(Object obj) {
+        try {
+<span class="nc" id="L76">            return mapper.writeValueAsString(obj);</span>
+<span class="nc" id="L77">        } catch (Exception var2) {</span>
+<span class="nc" id="L78">            throw new RuntimeException(&quot;convert toJsonString failed: &quot; + obj, var2);</span>
+        }
+    }
+
+    static {
+<span class="nc" id="L83">        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);</span>
+//        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+<span class="nc" id="L85">        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);</span>
+<span class="nc" id="L86">        mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);</span>
+//        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+<span class="nc" id="L88">    }</span>
+
+    private JsonUtils() {
+    }
+
+    /**
+    {
+        &quot;store&quot;: {
+            &quot;book&quot;: [
+                {
+                    &quot;category&quot;: &quot;reference&quot;,
+                    &quot;author&quot;: &quot;Nigel Rees&quot;,
+                    &quot;title&quot;: &quot;Sayings of the Century&quot;,
+                    &quot;price&quot;: 8.95
+                },
+                {
+                    &quot;category&quot;: &quot;fiction&quot;,
+                    &quot;author&quot;: &quot;Evelyn Waugh&quot;,
+                    &quot;title&quot;: &quot;Sword of Honour&quot;,
+                    &quot;price&quot;: 12.99
+                },
+                {
+                    &quot;category&quot;: &quot;fiction&quot;,
+                    &quot;author&quot;: &quot;Herman Melville&quot;,
+                    &quot;title&quot;: &quot;Moby Dick&quot;,
+                    &quot;isbn&quot;: &quot;0-553-21311-3&quot;,
+                    &quot;price&quot;: 8.99
+                },
+                {
+                    &quot;category&quot;: &quot;fiction&quot;,
+                    &quot;author&quot;: &quot;J. R. R. Tolkien&quot;,
+                    &quot;title&quot;: &quot;The Lord of the Rings&quot;,
+                    &quot;isbn&quot;: &quot;0-395-19395-8&quot;,
+                    &quot;price&quot;: 22.99
+                }
+            ],
+            &quot;bicycle&quot;: {
+                &quot;color&quot;: &quot;red&quot;,
+                &quot;price&quot;: 19.95
+            }
+        },
+        &quot;expensive&quot;: 10
+    }
+
+    JsonPath (click link to try)	Result
+        $.store.book[*].author	The authors of all books
+        $..author	All authors
+        $.store.*	All things, both books and bicycles
+        $.store..price	The price of everything
+        $..book[2]	The third book
+        $..book[(@.length-1)]	The last book
+        $..book[0,1]	The first two books
+        $..book[:2]	All books from index 0 (inclusive) until index 2 (exclusive)
+        $..book[1:2]	All books from index 1 (inclusive) until index 2 (exclusive)
+        $..book[-2:]	Last two books
+        $..book[2:]	Book number two from tail
+        $..book[?(@.isbn)]	All books with an ISBN number
+        $.store.book[?(@.price &lt; 10)]	All books in store cheaper than 10
+        $..book[?(@.price &lt;= $['expensive'])]	All books in store that are not &quot;expensive&quot;
+        $..book[?(@.author =~ /.*REES/i)]	All books matching regex (ignore case)
+        $..*	Give me every thing
+    */
+    public static Object extractValue(String jsonString, String jsonPathExpression) {
+<span class="nc" id="L151">        Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);</span>
+<span class="nc" id="L152">        return JsonPath.read(document, jsonPathExpression);</span>
+    }
+
+    public static String flattenJson(String json) throws IOException {
+<span class="nc" id="L156">        Map&lt;String, Object&gt; outputMap = new LinkedHashMap&lt;&gt;();</span>
+<span class="nc" id="L157">        flattenJsonIntoMap(&quot;&quot;, mapper.readTree(json), outputMap);</span>
+<span class="nc" id="L158">        return mapper.writeValueAsString(outputMap);</span>
+    }
+
+    public static void flattenJsonIntoMap(String currentPath, JsonNode jsonNode, Map&lt;String, Object&gt; map) {
+<span class="nc bnc" id="L162" title="All 2 branches missed.">        if (jsonNode.isObject()) {</span>
+<span class="nc" id="L163">            ObjectNode objectNode = (ObjectNode) jsonNode;</span>
+<span class="nc" id="L164">            Iterator&lt;Map.Entry&lt;String, JsonNode&gt;&gt; iter = objectNode.fields();</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">            String pathPrefix = currentPath.isEmpty() ? &quot;&quot; : currentPath + &quot;.&quot;;</span>
+
+<span class="nc bnc" id="L167" title="All 2 branches missed.">            while (iter.hasNext()) {</span>
+<span class="nc" id="L168">                Map.Entry&lt;String, JsonNode&gt; entry = iter.next();</span>
+<span class="nc" id="L169">                flattenJsonIntoMap(pathPrefix + entry.getKey(), entry.getValue(), map);</span>
+<span class="nc" id="L170">            }</span>
+<span class="nc bnc" id="L171" title="All 2 branches missed.">        } else if (jsonNode.isArray()) {</span>
+<span class="nc" id="L172">            ArrayNode arrayNode = (ArrayNode) jsonNode;</span>
+<span class="nc bnc" id="L173" title="All 2 branches missed.">            for (int i = 0; i &lt; arrayNode.size(); i++) {</span>
+<span class="nc" id="L174">                flattenJsonIntoMap(currentPath + &quot;[&quot; + i + &quot;]&quot;, arrayNode.get(i), map);</span>
+            }
+<span class="nc bnc" id="L176" title="All 2 branches missed.">        } else if (jsonNode.isValueNode()) {</span>
+<span class="nc" id="L177">            ValueNode valueNode = (ValueNode) jsonNode;</span>
+<span class="nc" id="L178">            Object value = null;</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">            if (valueNode.isNumber()) {</span>
+<span class="nc" id="L180">                value = valueNode.numberValue();</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">            } else if (valueNode.isBoolean()) {</span>
+<span class="nc" id="L182">                value = valueNode.asBoolean();</span>
+<span class="nc bnc" id="L183" title="All 2 branches missed.">            } else if (valueNode.isTextual()) {</span>
+<span class="nc" id="L184">                value = valueNode.asText();</span>
+            }
+<span class="nc" id="L186">            map.put(currentPath, value);</span>
+        }
+<span class="nc" id="L188">    }</span>
+//
+//    /**
+//     * 获取第一个数组值到Map
+//     *
+//     * @param jsonString
+//     * @param jsonPathExpression
+//     * @return
+//     */
+//    public static Map&lt;String, String&gt; getArrayValueToMap(String jsonString, String jsonPathExpression) {
+//
+//        try {
+//            return (Map&lt;String, String&gt;) ((JSONArray) extractValue(jsonString, jsonPathExpression)).get(0);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+
+    /**
+     * @param jsonString
+     * @param jsonPathExpression
+     * @return 如果有路径存在在返回实际值, 否则返回空字符串
+     */
+    public static String getStringValue(String jsonString, String jsonPathExpression) {
+        try {
+<span class="nc" id="L214">            return JsonPath.read(jsonString, jsonPathExpression).toString();</span>
+<span class="nc" id="L215">        } catch (Exception e) {</span>
+<span class="nc" id="L216">            return &quot;&quot;;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

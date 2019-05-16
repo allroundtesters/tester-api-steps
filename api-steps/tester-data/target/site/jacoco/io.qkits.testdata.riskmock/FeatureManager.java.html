@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FeatureManager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tester-data</a> &gt; <a href="index.source.html" class="el_package">io.qkits.testdata.riskmock</a> &gt; <span class="el_source">FeatureManager.java</span></div><h1>FeatureManager.java</h1><pre class="source lang-java linenums">package io.qkits.testdata.riskmock;
+
+
+import io.qkits.testdata.riskmock.base.FeaturesProvider;
+import io.qkits.testdata.riskmock.base.ServiceFeatureDefinition;
+import io.qkits.testdata.riskmock.thirdparty.ThirdPartyServiceMapping;
+
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * @author patrick
+ */
+public class FeatureManager {
+
+<span class="nc" id="L16">    private FeaturesProvider provider = new FeaturesProvider();</span>
+    private Map&lt;String, ServiceFeatureDefinition&gt; features;
+
+<span class="nc" id="L19">    public FeatureManager() {</span>
+<span class="nc" id="L20">        initTPFeatures();</span>
+<span class="nc" id="L21">    }</span>
+
+
+    private void initTPFeatures() {
+<span class="nc" id="L25">        features = provider.getAllFeatures();</span>
+<span class="nc" id="L26">    }</span>
+
+    /**
+     * get feature by chinese third party name or in-house service name
+     *
+     * @param tpName
+     * @return
+     */
+    public Set&lt;String&gt; getFeaturesByTPName(String tpName) {
+<span class="nc" id="L35">        String serviceName = ThirdPartyServiceMapping.getServiceNameByTPName(tpName);</span>
+        //todo: retrieve all the feature definitions
+<span class="nc" id="L37">        return features.get(serviceName).getFeatures().keySet();</span>
+    }
+
+    public void reloadFeatures() {
+        //todo:put into cache if multiple nodes used
+<span class="nc" id="L42">        initTPFeatures();</span>
+<span class="nc" id="L43">    }</span>
+
+    /**
+     * get feature by service name
+     *
+     * @param serviceName
+     * @return
+     */
+    public Set&lt;String&gt; getFeaturesByServiceName(String serviceName) {
+
+<span class="nc" id="L53">        return features.get(serviceName).getFeatures().keySet();</span>
+    }
+
+    public ServiceFeatureDefinition getServiceFeatureDefByServiceName(String serviceName) {
+
+<span class="nc" id="L58">        return features.get(serviceName);</span>
+    }
+
+    public Map&lt;String, ServiceFeatureDefinition&gt; getFeatures() {
+<span class="nc" id="L62">        return features;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

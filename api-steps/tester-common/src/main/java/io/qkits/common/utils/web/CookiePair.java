@@ -1,4 +1,4 @@
-package io.qkits.common.utils;
+package io.qkits.common.utils.web;
 
 /**
  * @author patrick

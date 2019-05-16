@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ChineseIDCardNumberGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tester-common</a> &gt; <a href="index.source.html" class="el_package">io.qkits.common.generator.idcard</a> &gt; <span class="el_source">ChineseIDCardNumberGenerator.java</span></div><h1>ChineseIDCardNumberGenerator.java</h1><pre class="source lang-java linenums">package io.qkits.common.generator.idcard;
+
+
+import cn.hutool.core.date.DateField;
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
+import io.qkits.common.generator.GenericGenerator;
+import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.StringUtils;
+
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 身份证号码
+ * 1、号码的结构
+ * 公民身份号码是特征组合码，由十七位数字本体码和一位校验码组成。排列顺序从左至右依次为：六位数字地址码，
+ * 八位数字出生日期码，三位数字顺序码和一位数字校验码。
+ * 2、地址码(前六位数）
+ * 表示编码对象常住户口所在县(市、旗、区)的行政区划代码，按GB/T2260的规定执行。
+ * 3、出生日期码（第七位至十四位）
+ * 表示编码对象出生的年、月、日，按GB/T7408的规定执行，年、月、日代码之间不用分隔符。
+ * 4、顺序码（第十五位至十七位）
+ * 表示在同一地址码所标识的区域范围内，对同年、同月、同日出生的人编定的顺序号，
+ * 顺序码的奇数分配给男性，偶数分配给女性。
+ * 5、校验码（第十八位数）
+ * （1）十七位数字本体码加权求和公式 S = Sum(Ai * Wi), i = 0, ... , 16 ，先对前17位数字的权求和
+ * Ai:表示第i位置上的身份证号码数字值 Wi:表示第i位置上的加权因子 Wi: 7 9 10 5 8 4 2 1 6 3 7 9 10 5 8 4
+ * 2 （2）计算模 Y = mod(S, 11) （3）通过模得到对应的校验码 Y: 0 1 2 3 4 5 6 7 8 9 10 校验码: 1 0
+ * X 9 8 7 6 5 4 3 2
+ * @author patrick
+ */
+public class ChineseIDCardNumberGenerator extends GenericGenerator {
+<span class="fc" id="L38">    private static GenericGenerator instance = new ChineseIDCardNumberGenerator();</span>
+
+    private ChineseIDCardNumberGenerator() {
+    }
+
+    public static GenericGenerator getInstance() {
+<span class="fc" id="L44">        return instance;</span>
+    }
+
+    /**
+     * 生成签发机关：XXX公安局/XX区分局
+     * Authority
+     */
+    public static String generateIssueOrg() {
+<span class="nc" id="L52">        return ChineseAreaList.cityNameList</span>
+<span class="nc" id="L53">            .get(RandomUtils.nextInt(0, ChineseAreaList.cityNameList.size()))</span>
+            + &quot;公安局某某分局&quot;;
+    }
+
+    /**
+     * 生成有效期限：20150906-20350906
+     * Valid Through
+     */
+    public static String generateValidPeriod() {
+<span class="nc" id="L62">        DateTime beginDate =new DateTime(randomDate()) ;</span>
+
+<span class="nc" id="L64">        String formatter = &quot;yyyyMMdd&quot;;</span>
+<span class="nc" id="L65">        DateTime endDate = beginDate.setField(DateField.YEAR,beginDate.year()+20);</span>
+<span class="nc" id="L66">        return beginDate.toString(formatter) + &quot;-&quot; + endDate.toString(formatter);</span>
+    }
+
+    @Override
+    public String generate() {
+<span class="fc" id="L71">        Map&lt;String, String&gt; code = getAreaCode();</span>
+<span class="fc" id="L72">        String areaCode = code.keySet().toArray(new String[0])[RandomUtils</span>
+<span class="fc" id="L73">            .nextInt(0, code.size())]</span>
+<span class="fc" id="L74">            + StringUtils.leftPad((RandomUtils.nextInt(0, 9998) + 1) + &quot;&quot;, 4,</span>
+                &quot;0&quot;);
+
+<span class="fc" id="L77">        String birthday = new SimpleDateFormat(&quot;yyyyMMdd&quot;).format(randomDate());</span>
+<span class="fc" id="L78">        String randomCode = String.valueOf(1000 + RandomUtils.nextInt(0, 999))</span>
+<span class="fc" id="L79">            .substring(1);</span>
+<span class="fc" id="L80">        String pre = areaCode + birthday + randomCode;</span>
+<span class="fc" id="L81">        String verifyCode = getVerifyCode(pre);</span>
+<span class="fc" id="L82">        String result = pre + verifyCode;</span>
+
+<span class="fc" id="L84">        return result;</span>
+    }
+
+    public String generateByAge(int age) {
+<span class="nc" id="L88">        Map&lt;String, String&gt; code = getAreaCode();</span>
+<span class="nc" id="L89">        String areaCode = code.keySet().toArray(new String[0])[RandomUtils</span>
+<span class="nc" id="L90">            .nextInt(0, code.size())]</span>
+<span class="nc" id="L91">            + StringUtils.leftPad((RandomUtils.nextInt(0, 9998) + 1) + &quot;&quot;, 4,</span>
+            &quot;0&quot;);
+
+<span class="nc" id="L94">        String birthday = new SimpleDateFormat(&quot;yyyyMMdd&quot;).format(randomDateByAge(age));</span>
+<span class="nc" id="L95">        String randomCode = String.valueOf(1000 + RandomUtils.nextInt(0, 999))</span>
+<span class="nc" id="L96">            .substring(1);</span>
+<span class="nc" id="L97">        String pre = areaCode + birthday + randomCode;</span>
+<span class="nc" id="L98">        String verifyCode = getVerifyCode(pre);</span>
+<span class="nc" id="L99">        String result = pre + verifyCode;</span>
+
+<span class="nc" id="L101">        return result;</span>
+    }
+
+    public static Date randomDate() {
+<span class="fc" id="L105">        return randomDate(1970,DateUtil.thisYear());</span>
+    }
+
+    public static Date randomDate(int fromYear,int endYear) {
+<span class="fc" id="L109">        Calendar calendar = Calendar.getInstance();</span>
+<span class="fc" id="L110">        calendar.set(fromYear, 1, 1);</span>
+<span class="fc" id="L111">        long earlierDate = calendar.getTime().getTime();</span>
+<span class="fc" id="L112">        calendar.set(endYear, 1, 1);</span>
+<span class="fc" id="L113">        long laterDate = calendar.getTime().getTime();</span>
+
+<span class="fc" id="L115">        long chosenDate = RandomUtils.nextLong(earlierDate, laterDate);</span>
+
+<span class="fc" id="L117">        return new Date(chosenDate);</span>
+    }
+
+    public static Date randomDateByAge(int age) {
+<span class="nc" id="L121">        int fromYear = DateUtil.thisYear()-age;</span>
+<span class="nc" id="L122">        int endYear = DateUtil.thisYear()-age;</span>
+<span class="nc" id="L123">        return randomDate(fromYear,endYear);</span>
+    }
+
+    private static String getVerifyCode(String cardId) {
+<span class="fc" id="L127">        String[] valCodeArr = { &quot;1&quot;, &quot;0&quot;, &quot;X&quot;, &quot;9&quot;, &quot;8&quot;, &quot;7&quot;, &quot;6&quot;, &quot;5&quot;, &quot;4&quot;,</span>
+            &quot;3&quot;, &quot;2&quot; };
+<span class="fc" id="L129">        String[] Wi = { &quot;7&quot;, &quot;9&quot;, &quot;10&quot;, &quot;5&quot;, &quot;8&quot;, &quot;4&quot;, &quot;2&quot;, &quot;1&quot;, &quot;6&quot;, &quot;3&quot;, &quot;7&quot;,</span>
+            &quot;9&quot;, &quot;10&quot;, &quot;5&quot;, &quot;8&quot;, &quot;4&quot;, &quot;2&quot; };
+<span class="fc" id="L131">        int tmp = 0;</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">        for (int i = 0; i &lt; Wi.length; i++) {</span>
+<span class="fc" id="L133">            tmp += Integer.parseInt(String.valueOf(cardId.charAt(i)))</span>
+<span class="fc" id="L134">                * Integer.parseInt(Wi[i]);</span>
+        }
+
+<span class="fc" id="L137">        int modValue = tmp % 11;</span>
+<span class="fc" id="L138">        String strVerifyCode = valCodeArr[modValue];</span>
+
+<span class="fc" id="L140">        return strVerifyCode;</span>
+    }
+
+    private static Map&lt;String, String&gt; getAreaCode() {
+<span class="fc" id="L144">        final Map&lt;String, String&gt; map = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L145">        map.put(&quot;11&quot;, &quot;北京&quot;);</span>
+<span class="fc" id="L146">        map.put(&quot;12&quot;, &quot;天津&quot;);</span>
+<span class="fc" id="L147">        map.put(&quot;13&quot;, &quot;河北&quot;);</span>
+<span class="fc" id="L148">        map.put(&quot;14&quot;, &quot;山西&quot;);</span>
+<span class="fc" id="L149">        map.put(&quot;15&quot;, &quot;内蒙古&quot;);</span>
+<span class="fc" id="L150">        map.put(&quot;21&quot;, &quot;辽宁&quot;);</span>
+<span class="fc" id="L151">        map.put(&quot;22&quot;, &quot;吉林&quot;);</span>
+<span class="fc" id="L152">        map.put(&quot;23&quot;, &quot;黑龙江&quot;);</span>
+<span class="fc" id="L153">        map.put(&quot;31&quot;, &quot;上海&quot;);</span>
+<span class="fc" id="L154">        map.put(&quot;32&quot;, &quot;江苏&quot;);</span>
+<span class="fc" id="L155">        map.put(&quot;33&quot;, &quot;浙江&quot;);</span>
+<span class="fc" id="L156">        map.put(&quot;34&quot;, &quot;安徽&quot;);</span>
+<span class="fc" id="L157">        map.put(&quot;35&quot;, &quot;福建&quot;);</span>
+<span class="fc" id="L158">        map.put(&quot;36&quot;, &quot;江西&quot;);</span>
+<span class="fc" id="L159">        map.put(&quot;37&quot;, &quot;山东&quot;);</span>
+<span class="fc" id="L160">        map.put(&quot;41&quot;, &quot;河南&quot;);</span>
+<span class="fc" id="L161">        map.put(&quot;42&quot;, &quot;湖北&quot;);</span>
+<span class="fc" id="L162">        map.put(&quot;43&quot;, &quot;湖南&quot;);</span>
+<span class="fc" id="L163">        map.put(&quot;44&quot;, &quot;广东&quot;);</span>
+<span class="fc" id="L164">        map.put(&quot;45&quot;, &quot;广西&quot;);</span>
+<span class="fc" id="L165">        map.put(&quot;46&quot;, &quot;海南&quot;);</span>
+<span class="fc" id="L166">        map.put(&quot;50&quot;, &quot;重庆&quot;);</span>
+<span class="fc" id="L167">        map.put(&quot;51&quot;, &quot;四川&quot;);</span>
+<span class="fc" id="L168">        map.put(&quot;52&quot;, &quot;贵州&quot;);</span>
+<span class="fc" id="L169">        map.put(&quot;53&quot;, &quot;云南&quot;);</span>
+<span class="fc" id="L170">        map.put(&quot;54&quot;, &quot;西藏&quot;);</span>
+<span class="fc" id="L171">        map.put(&quot;61&quot;, &quot;陕西&quot;);</span>
+<span class="fc" id="L172">        map.put(&quot;62&quot;, &quot;甘肃&quot;);</span>
+<span class="fc" id="L173">        map.put(&quot;63&quot;, &quot;青海&quot;);</span>
+<span class="fc" id="L174">        map.put(&quot;64&quot;, &quot;宁夏&quot;);</span>
+<span class="fc" id="L175">        map.put(&quot;65&quot;, &quot;新疆&quot;);</span>
+<span class="fc" id="L176">        map.put(&quot;71&quot;, &quot;台湾&quot;);</span>
+<span class="fc" id="L177">        map.put(&quot;81&quot;, &quot;香港&quot;);</span>
+<span class="fc" id="L178">        map.put(&quot;82&quot;, &quot;澳门&quot;);</span>
+<span class="fc" id="L179">        map.put(&quot;91&quot;, &quot;国外&quot;);</span>
+
+<span class="fc" id="L181">        return map;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
