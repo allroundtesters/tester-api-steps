@@ -7,11 +7,12 @@
     <modules>
         <module>cicd-first</module>
         <module>jmeter-plugin-template</module>
+        <module>chaos-spring</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.3.RELEASE</version>
+        <version>2.1.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>io.allroundtester</groupId>
