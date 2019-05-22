@@ -13,6 +13,8 @@
         <module>tester-ext</module>
         <module>tester-mock</module>
         <module>tester-data</module>
+        <module>tester-blog</module>
+        <module>tester-generator</module>
     </modules>
 
     <dependencyManagement>

@@ -1,0 +1,14 @@
+{
+    "path": "/user/login",
+    "method": "POST",
+    "request": {
+        "userName": "userName",
+        "password": "password"
+    },
+    "generator": {
+        "entity": true,
+        "service": true,
+        "controller": true,
+        "repository": true
+    }
+}
